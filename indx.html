@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>I'm Sorry 💖</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Comic Sans MS", cursive;
+        background: linear-gradient(135deg, #ffb6c1, #ff69b4, #ffc0cb);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    /* ---------------------- HER PHOTO ---------------------- */
+    .photo-wrapper {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        margin-bottom: 20px;
+    }
+
+    .her-photo {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 0 20px rgba(255, 0, 130, 0.6);
+        position: relative;
+        z-index: 3;
+    }
+
+    /* Floating 🙏 emojis */
+    .pray {
+        position: absolute;
+        font-size: 28px;
+        animation: floatAround 4s infinite ease-in-out;
+        opacity: 0.9;
+    }
+
+    @keyframes floatAround {
+        0% { transform: translate(0,0); }
+        25% { transform: translate(90px, -90px); }
+        50% { transform: translate(0, -120px); }
+        75% { transform: translate(-90px, -90px); }
+        100% { transform: translate(0, 0); }
+    }
+
+    /* ---------------------- MAIN CONTAINER ---------------------- */
+    .container {
+        text-align: center;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        width: 350px;
+        box-shadow: 0 0 20px rgba(255, 0, 100, 0.4);
+        animation: pop 1s ease-out;
+        position: relative;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(0.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+        color: #ff1493;
+        margin-bottom: 10px;
+        text-shadow: 0 0 5px white;
+    }
+
+    .emoji {
+        font-size: 50px;
+        animation: bounce 1.2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    #yesBtn, #noBtn {
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    #yesBtn {
+        background: #ff69b4;
+        color: white;
+    }
+
+    #noBtn {
+        background: #ffd1dc;
+        color: #ff1493;
+        position: absolute;
+    }
+
+    /* Hearts explosion after YES */
+    .heart {
+        position: fixed;
+        bottom: -10px;
+        font-size: 20px;
+        animation: floatUp 4s linear infinite;
+        opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-110vh); }
+    }
+</style>
+</head>
+<body>
+
+<!-- HER PICTURE -->
+<div class="photo-wrapper">
+    <img src="WhatsApp Image 2025-11-28 at 17.40.26_3a91ab94.jpg" class="her-photo" id="herPic">
+</div>
+
+<!-- MUSIC -->
+<audio id="song1" src="chalo-jaane-do-bhoothnath-128-kbps_PrPkOCtb.mp3" autoplay loop></audio>
+<audio id="song2" src="joru-ka-ghulam-sunidhi-chauhan-128-kbps_ute4B3LJ.mp3"></audio>
+
+<!-- MAIN CARD -->
+<div class="container">
+    <div class="emoji">🙏🥺</div>
+    <h1>I'm Really Sorry 💗</h1>
+    <p>Mujhe maaf kardo Apsara ji 🥰</p>
+
+    <button id="yesBtn">Acha thik h 💞</button>
+    <button id="noBtn">Nahi 😤</button>
+
+    <p id="message" style="font-size:20px; color:#ff1493; margin-top:20px;"></p>
+</div>
+
+<script>
+/* ----------------------- FLOATING 🙏 EMOJIS ----------------------- */
+
+document.getElementById("herPic").addEventListener("load", () => {
+    spawnPrayEmojis();
+});
+
+function spawnPrayEmojis() {
+    const wrapper = document.querySelector(".photo-wrapper");
+
+    for (let i = 0; i < 6; i++) {
+        let pray = document.createElement("div");
+        pray.classList.add("pray");
+        pray.innerHTML = "🙏";
+
+        // random positions around the picture
+        pray.style.left = 50 + (Math.random() * 60 - 30) + "%";
+        pray.style.top = 50 + (Math.random() * 60 - 30) + "%";
+
+        wrapper.appendChild(pray);
+    }
+}
+
+/* ----------------------- NO BUTTON MOVEMENT ----------------------- */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", () => {
+    noBtn.style.left = Math.random() * 200 + "px";
+    noBtn.style.top = Math.random() * 200 + "px";
+});
+
+/* ----------------------- AUDIO CONTROL ----------------------- */
+const song1 = document.getElementById("song1");
+const song2 = document.getElementById("song2");
+
+document.getElementById("yesBtn").onclick = () => {
+    document.getElementById("message").innerHTML = "Main joru ka Ghulam ban ke rahunga😭 ❤️😍";
+
+    song1.pause();
+    song1.currentTime = 0;
+    song2.play();
+
+    createHearts();
+};
+
+/* ----------------------- FLOATING HEARTS ----------------------- */
+function createHearts() {
+    for (let i = 0; i < 20; i++) {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+    }
+}
+</script>
+
+</body>
+</html>
